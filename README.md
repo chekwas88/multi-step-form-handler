@@ -12,16 +12,55 @@ npm install --save multi-step-form-handler
 
 ## Usage
 
+### Example form
+
 ```tsx
-import React, { Component } from 'react'
+function FormA({ handleOnChange, errors, values }) {
+  return (
+    <form>
+      <input
+        type='text'
+        name='name'
+        onChange={handleOnChange}
+        value={values.name}
+      />
+      {errors.name ? <p>{errors.name}</p> : null}
+    </form>
+  )
+}
+```
 
-import MyComponent from 'multi-step-form-handler'
-import 'multi-step-form-handler/dist/index.css'
+```tsx
+import * as React from 'react'
+import FormHandler, {useForm, useForm} from 'multi-step-form-handler'
+import {FormA, FormB, FormC} from './forms'
+import Button from './button'
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+
+function Example(){
+    return (
+      <FormHandler
+        initialValues={initialValues}
+        validationSchema={schema}
+      >{({nextPage, previousPage, onSubmit, currentPage})} =>{
+        return(
+          <h2>{currentPage}</h2>
+        <FormHandler.Forms>
+          <FormA />
+          <FormB />
+          <FormC />
+        </FormHandler.Forms>
+        <FormHandler.Buttons>
+          <Button onClick={previousPage}>Previous</Button>
+          <Button onClick={nextPage}>Next</Button>
+        </FormHandler.Buttons>
+        <Button onClick={onSubmit}>Submit</Button>
+        )
+      }
+
+      </FormHandler.Forms>
+    )
+
 }
 ```
 
